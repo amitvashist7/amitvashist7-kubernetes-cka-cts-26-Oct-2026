@@ -354,30 +354,6 @@ If the controller exists, inspect its selector and events to determine why Pods 
 
 ---
 
-## 11. ReplicationController vs. Deployment
-
-| Feature | ReplicationController | Deployment |
-|---|---|---|
-| Maintains desired replica count | Yes | Yes, through ReplicaSets |
-| Recreates failed or deleted Pods | Yes | Yes |
-| Declarative application updates | Limited | Yes |
-| Rolling updates and rollbacks | Not built in | Supported |
-| Recommended for new applications | No; legacy resource | Yes |
-
-For modern Kubernetes applications, prefer a Deployment:
-
-```bash
-kubectl create deployment helloworld --image=nginx
-kubectl scale deployment helloworld --replicas=3
-kubectl get deployments
-kubectl get replicasets
-kubectl get pods
-```
-
-This example uses NGINX to demonstrate a Deployment independently of the `helloworld-rc.yaml` manifest.
-
----
-
 ## Key Takeaways
 
 1. A ReplicationController maintains the desired number of matching Pods.
@@ -386,4 +362,3 @@ This example uses NGINX to demonstrate a Deployment independently of the `hellow
 4. `kubectl describe` provides useful resource details and troubleshooting events.
 5. `kubectl get pods -o wide` displays Pod placement and network information.
 6. `kubectl delete pod --all` does not necessarily remove controller-managed workloads permanently.
-7. Deployments are preferred over ReplicationControllers for new Kubernetes workloads.

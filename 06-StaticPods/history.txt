@@ -1,22 +1,17 @@
-  176  systemctl status kubelet
-  177  cat /etc/kubernetes/kubelet.conf
-  178  ls
-  179  cat /var/lib/kubelet/config.yaml
-  180  cd /etc/kubernetes/manifests/
-  181  ls
-  182  kubectl get pods -n kube-system
-  183  kubectl run hello-static-k9s --image=nginx --port=80 --dry-run -o yaml
-  184  kubectl run hello-static-k9s --image=nginx --port=80 --dry-run -o yaml > hello-static-k9s.yaml
-  185  ls
-  186  kubectl  get pods
-  187  kubectl  get pods -o wide
-  188  ls
-  189  kubectl  get pods
-  190  cat hello-static-k9s.yaml
-  191  kubectl  get pods
-  192  kubectl delete pod --all
-  193  kubectl  get pods
-  194  ls
-  195  history
-  196  ls
-  197  rm -rf hello-static-k9s.yaml
+## Create a Static POD
+kubectl run hello-static-k9s --image=nginx --port=80 --dry-run -o yaml
+kubectl get nodes 
+docker exec -it <worker-node-name> bash
+cat /etc/kubernetes/kubelet.conf
+ls
+cat /var/lib/kubelet/config.yaml
+cd /etc/kubernetes/manifests/
+echo "<content of yaml>" > /etc/kubernetes/manifests/nginx.yaml
+exit 
+kubectl get pods 
+kubectl delete pods --all 
+
+## Now Delete the Static POD
+docker exec -it <worker-node-name> bash
+rm -rf /etc/kubernetes/manifests/nginx.yaml
+exit

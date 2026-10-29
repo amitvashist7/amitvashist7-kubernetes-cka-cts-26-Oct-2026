@@ -9,6 +9,20 @@ cat amit.pem
 openssl  req -new -key amit.pem -out amit-csr.pem -subj "/CN=amit/O=training"
    
 cat amit-csr.pem 
+```
+# In case of KIND K8s Clusters
+```
+mkdir -p /etc/kubernetes/pki/
+
+docker ps # check the master or control plan node container name 
+
+docker exec -it k8s-control-plane ls  /etc/kubernetes/pki/
+
+docker exec -it k8s-control-plane cat  /etc/kubernetes/pki/ca.crt > /etc/kubernetes/pki/ca.crt
+docker exec -it k8s-control-plane cat  /etc/kubernetes/pki/ca.key > /etc/kubernetes/pki/ca.key
+```
+# Single the User CSR Request witk K8s CA Certificate
+```
 openssl x509 -req -in amit-csr.pem -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out amit.crt -days 10000
 
 openssl x509 -in amit.crt -text -noout

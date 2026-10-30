@@ -1,0 +1,49 @@
+ 848  cd 14-Affinity/
+  849  ls
+  850  cat 01-helloworld.yaml 
+  851  kubectl apply -f 01-helloworld.yaml 
+  852  kubectl get pods 
+  853  kubectl delete -f 01-helloworld.yaml 
+  854  kubectl apply -f 01-helloworld.yaml 
+  855  kubectl get pods 
+  856  kubectl get pods -o wide 
+  857  kubectl get nodes --show-labels| grep -i env 
+  858  kubectl label node k8s-worker-1 env=dev
+  859  ls
+  860  kubectl label node k8s-worker-1 env-
+  861  ls
+  862  kubectl delete -f 01-helloworld.yaml 
+  863  ls
+  864  cat 02-helloworld-dev-prod.yaml 
+  865  kubectl apply -f 02-helloworld-dev-prod.yaml 
+  866  kubectl get pods -o wide 
+  867  kubectl label node k8s-worker-1 env=dev
+  868  kubectl scale --replicas=7 deploy helloworld-deployment
+  869  kubectl get pods -o wide 
+  870  ls
+  871  cat 03-helloworld-multi-affinity.yaml 
+  872  kubectl delete -f 01-helloworld.yaml 
+  873  kubectl delete -f 02-helloworld-dev-prod.yaml 
+  874  ls
+  875  kubectl get pods 
+  876  kubectl label node k8s-worker-2 env-
+  877  kubectl label node k8s-worker-2 env=dev
+  878  ls
+  879  kubectl apply -f 03-helloworld-multi-affinity.yaml 
+  880  kubectl get po 
+  881  kubectl get po -o wide 
+  882  kubectl scale --replicas=10 -f 03-helloworld-multi-affinity.yaml 
+  883  kubectl get po -o wide 
+  884  kubectl get po -o wide | grep k8s-worker-2 | wc -l 
+  885  kubectl get po -o wide | grep k8s-worker-1 | wc -l 
+  886  kubectl delete -f 03-helloworld-multi-affinity.yaml 
+  887  ls
+  888  cat 03-helloworld-multi-affinity.yaml 
+  889  kubectl label node k8s-worker-2 team=engineering-project1
+  890  kubectl apply -f 03-helloworld-multi-affinity.yaml 
+  891  kubectl get po -o wide | grep k8s-worker-2 | wc -l 
+  892  kubectl get po -o wide 
+  893  kubectl get nodes --show-labels| grep -i env 
+  894  kubectl scale --replicas=10 -f 03-helloworld-multi-affinity.yaml 
+  895  kubectl get nodes --show-labels| grep -i env 
+  896  kubectl get po -o wide 

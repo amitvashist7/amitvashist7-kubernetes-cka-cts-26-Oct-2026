@@ -1,0 +1,61 @@
+  645  mkdir 01-Affinity
+  646  ls
+  647  cp -rf 01-helloworld-affinity.yaml 01-Affinity/
+  648  ls
+  649  cp -rf 02-gray-deployment.yaml 01-Affinity/
+  650  ls
+  651  mkdir 02-Taint-n-Toleration
+  652  ls
+  653  cp -rf 02-gray-deployment.yaml 02-Taint-n-Toleration/
+  654  ls
+  655  mv helloworld-affinity-with-tolerations.yaml 02-Taint-n-Toleration/
+  656  ls
+  657  rm -rf 01-helloworld-affinity.yaml
+  658  rm -rf 02-gray-deployment.yaml
+  659  ls
+  660  kubectl  get pods
+  661  kubectl  get pods -o wide
+  662  kubectl  delete -f 01-Affinity/
+  663  ls
+  664  cd 02-Taint-n-Toleration/
+  665  ls
+  666  mv helloworld-affinity-with-tolerations.yaml 01-helloworld-tolerations.yaml
+  667  ls
+  668  vim 01-helloworld-tolerations.yaml
+  669  ls
+  670  cat 01-helloworld-tolerations.yaml
+  671  ls
+  672  kubectl  apply -f 01-helloworld-tolerations.yaml
+  673  kubectl  apply -f 02-gray-deployment.yaml
+  674  kubectl  get pods
+  675  kubectl  get pods -o wide
+  676  kubectl  delete -f ../02-Taint-n-Toleration/
+  677  cat 01-helloworld-tolerations.yaml
+  678  kubectl  taint node worker1 app=myapp:NoSchedule
+
+  679  ls
+  680  kubectl  apply -f 02-gray-deployment.yaml
+  681  kubectl  get pods
+  682  kubectl  get pods -o wide
+  683  kubectl  apply -f 01-helloworld-tolerations.yaml
+  684  kubectl  get pods -o wide
+  685  ls
+  686  cd ..
+  687  ls
+  688  mkdir 03-Affinity-with-Toleration
+  689  ls
+  690  cp -rf 02-Taint-n-Toleration/02-gray-deployment.yaml 03-Affinity-with-Toleration/
+  691  ls
+  692  cp -rf 02-Taint-n-Toleration/01-helloworld-tolerations.yaml 03-Affinity-with-Toleration/
+  693  ls
+  694  cd 03-Affinity-with-Toleration/
+  695  ls
+  696  vim 01-helloworld-tolerations.yaml
+  697  ls
+  698  kubectl apply -f 01-helloworld-tolerations.yaml
+  699  kubectl get po
+  700  kubectl delete -f ../02-Taint-n-Toleration/
+  701  kubectl get po
+  702  kubectl get po -o wide
+  703  kubectl  apply -f 02-gray-deployment.yaml
+  704  kubectl get po -o wide
